@@ -11,5 +11,6 @@ export const BD_NAME = process.env.BD_NAME;
 
 export const SECRET = process.env.SECRET_JWT;
 export const EXPIRES = process.env.EXPIRES_IN;
+export const URL_FRONT = process.env.URL_FRONT;
 
-export const TOKEN_SECRET = "llave secreta";
+export const TOKEN_SECRET = "llave secreta"; // mi llave para generar mis propios tokens
