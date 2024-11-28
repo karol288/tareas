@@ -1,0 +1,8 @@
+/*esto que se agrega es para los estilos;*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background: white;
+}
