@@ -5,6 +5,7 @@ import {
   logout,
   profile,
   subir_imagen,
+  verificarToken,
 } from "../controllers/auth.controllers.js";
 import { authRequerida } from "../middlewares/validarToken.js";
 import { validarSchema } from "../middlewares/validadorSchemas.middlewares.js";
@@ -16,6 +17,7 @@ const router = Router();
 router.post("/registro", validarSchema(registerSchema), registro);
 router.post("/login", validarSchema(loginSchema), login);
 router.post("/logout", logout); //cerrar sesion
+router.post("/auth/verify", verificarToken);
 router.get("/profile", authRequerida, profile); //perfil
 router.post(
   "/upload-imagen",

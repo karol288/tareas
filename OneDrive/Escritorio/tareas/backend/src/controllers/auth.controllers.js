@@ -6,10 +6,15 @@ import {
 } from "../models/usuario.models.js";
 import bcrypt from "bcryptjs"; //para incriprtar la contraseña
 import { creacionToken } from "../libs/jwt.js"; //para en token
+import jwt from "jsonwebtoken";
+import { TOKEN_SECRET } from "../config.js";
 
 export const registro = async (req, res) => {
   try {
     const { nombre, password, email } = req.body; //datos que el dato envia en la peticion
+
+    const usuariofound = await EncontrarUsuarioEmail(email);
+    if (usuariofound) return res.status(400).json(["email ya esta en uso "]);
 
     const passwordHash = await bcrypt.hash(password, 10); //el hash es para como tal incriptar la contraseña pasar la contraseña a un numero de letras
 
@@ -117,4 +122,25 @@ export const subir_imagen = async (req, res) => {
     console.error(error);
     return res.status(500).json({ message: "Internal server error" });
   }
+};
+
+//verificar el token
+export const verificarToken = async (req, res) => {
+  const { token } = req.cookies;
+
+  if (!token) return res.status(401).json({ message: "no autorizado" });
+
+  jwt.verify(token, TOKEN_SECRET, async (error, usuario) => {
+    if (error) return res.status(401).json({ message: "no autorizado" });
+
+    const usuarioEncontrado = await EncontrarUsuarioID(req.usuario.id);
+    if (!usuarioEncontrado)
+      return res.status(401).json({ message: "no autorizado" });
+
+    return res.json({
+      id: usuarioEncontrado.id_usuarios,
+      nombre: usuarioEncontrado.nombre,
+      email: usuarioEncontrado.email,
+    });
+  });
 };
