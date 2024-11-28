@@ -30,13 +30,7 @@ export const insertTarea = async (req, res) => {
       estado,
     });
     console.log(nuevaTarea);
-    res.json({
-      id_usuario: nuevaTarea.id_usuario,
-      titulo: nuevaTarea.titulo,
-      descripcion: nuevaTarea.descripcion,
-      fecha_finalizacion: nuevaTarea.fecha_finalizacion,
-      estado: nuevaTarea.estado,
-    });
+    res.json({ message: "tarea creada" });
   } catch (error) {
     console.error("error al querer crear una tarea", error);
   }
@@ -86,7 +80,7 @@ export const updateTarea = async (req, res) => {
       estado: estado ? estado : tarea.estado,
     });
     console.log(tareaActualizada);
-    res.json(tareaActualizada);
+    res.json({ message: "tarea actualizada" });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "hubo un error en el servidor" });

@@ -20,6 +20,7 @@ router.post("/logout", logout); //cerrar sesion
 router.post("/auth/verify", verificarToken);
 router.get("/profile", authRequerida, profile); //perfil
 router.post(
+  //subir foto de perfil
   "/upload-imagen",
   authRequerida,
   upload.single("file"),
